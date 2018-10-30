@@ -1,5 +1,8 @@
 package lu.movielibrary.services.impl;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
@@ -13,25 +16,32 @@ public class MovieInfoServiceMySQLImpl implements IMovieInfoService{
 	@Autowired
 	private MovieRepository movieRepository;
 	
+	List<Movie> movies = new ArrayList<>();
+	
 	@Override
 	public void addMovie(Movie movie) {
 		movieRepository.save(movie);
 	}
 
 	@Override
-	public void updateMovie(Movie movie, String title) {
-		movieRepository.updateMovie(movie.getTitle(), movie.getDirector(), movie.getReleaseDate(), movie.getType());
+	public void updateMovie(Movie movie, Long id) {
+		movieRepository.updateMovie(movie.getTitle(), movie.getDirector(), movie.getReleaseDate(), movie.getType(), id);
 	}
 
 	@Override
 	public Movie getMovieByName(String title) {
-		return null;
+		return movieRepository.findByTitle(title);
 	}
 
 	@Override
 	public void deleteMovie(Movie movie) {
-		// TODO Auto-generated method stub
-		
+		movieRepository.delete(movie);
+	}
+
+	@Override
+	public List<Movie> getAllMovies() {
+		movieRepository.findAll().forEach(movies::add);
+		return movies;
 	}
 
 }
