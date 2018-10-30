@@ -51,7 +51,9 @@ public class MovieController {
 	}
 	@RequestMapping(value = "/movie/{title}", method = RequestMethod.PUT, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> updateMovie(@RequestBody Movie movie, @PathVariable("title") String title) {
+		
 		Movie movie2 = movieInfoService.getMovieByName(title);
+		logger.info("recuperation du film...");
 		movie2.setTitle(movie.getTitle());
 		movie2.setDirector(movie.getDirector());
 		movie2.setReleaseDate(movie.getReleaseDate());
@@ -62,7 +64,8 @@ public class MovieController {
 	}
 	@RequestMapping(value = "/movie", method = RequestMethod.DELETE, consumes = MediaType.APPLICATION_JSON_VALUE)
 	public ResponseEntity<Void> deleteMovie(@RequestBody Movie movie){
-		movieInfoService.deleteMovie(movie);
+		Movie movie2 = movieInfoService.getMovieByName(movie.getTitle());
+		movieInfoService.deleteMovie(movie2);
 		return new ResponseEntity<>(HttpStatus.ACCEPTED);
 	}
 }

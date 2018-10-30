@@ -16,7 +16,7 @@ public class MovieInfoServiceMySQLImpl implements IMovieInfoService{
 	@Autowired
 	private MovieRepository movieRepository;
 	
-	List<Movie> movies = new ArrayList<>();
+	List<Movie> movies ;
 	
 	@Override
 	public void addMovie(Movie movie) {
@@ -40,6 +40,7 @@ public class MovieInfoServiceMySQLImpl implements IMovieInfoService{
 
 	@Override
 	public List<Movie> getAllMovies() {
+		movies = new ArrayList<>();
 		movieRepository.findAll().forEach(movies::add);
 		return movies;
 	}
