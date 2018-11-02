@@ -45,4 +45,9 @@ public class MovieInfoServiceMySQLImpl implements IMovieInfoService{
 		return movies;
 	}
 
+	@Override
+	public Movie getMovieById(Long id) {
+		return movieRepository.findById(id);
+	}
+
 }

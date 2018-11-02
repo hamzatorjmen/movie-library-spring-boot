@@ -16,4 +16,5 @@ public interface MovieRepository extends CrudRepository<Movie, Long>{
 	void updateMovie(String title, String director, Date releaseDate, String type, Long id);
 	
 	Movie findByTitle(String title);
+	Movie findById(Long id);
 }
